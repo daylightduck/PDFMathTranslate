@@ -379,29 +379,62 @@ def translate(
     return result_files
 
 
-def download_remote_fonts(lang: str):
-    URL_PREFIX = "https://github.com/timelic/source-han-serif/releases/download/main/"
-    LANG_NAME_MAP = {
-        **{la: "GoNotoKurrent-Regular.ttf" for la in noto_list},
-        **{
-            la: f"SourceHanSerif{region}-Regular.ttf"
-            for region, langs in {
-                "CN": ["zh-cn", "zh-hans", "zh"],
-                "TW": ["zh-tw", "zh-hant"],
-                "JP": ["ja"],
-                "KR": ["ko"],
-            }.items()
-            for la in langs
-        },
-    }
-    font_name = LANG_NAME_MAP.get(lang, "GoNotoKurrent-Regular.ttf")
+# def download_remote_fonts(lang: str):
+#     URL_PREFIX = "https://github.com/timelic/source-han-serif/releases/download/main/"
+#     LANG_NAME_MAP = {
+#         **{la: "GoNotoKurrent-Regular.ttf" for la in noto_list},
+#         **{
+#             la: f"SourceHanSerif{region}-Regular.ttf"
+#             for region, langs in {
+#                 "CN": ["zh-cn", "zh-hans", "zh"],
+#                 "TW": ["zh-tw", "zh-hant"],
+#                 "JP": ["ja"],
+#                 "KR": ["ko"],
+#                 "HI": ["hi"],
+#             }.items()
+#             for la in langs
+#         },
+#     }
+# def download_remote_fonts(lang: str):
+#     URL_PREFIX = "https://github.com/daylightduck/hindifonts/blob/main/"
+#     LANG_NAME_MAP = {
+#         **{la: "NotoSansDevanagari-Regular.ttf" for la in noto_list},
+    #     **{
+    #         la: f"NotoSansDevanagari{region}-Regular.ttf"
+    #         for region, langs in {
+    #             "CN": ["zh-cn", "zh-hans", "zh"],
+    #             "TW": ["zh-tw", "zh-hant"],
+    #             "JP": ["ja"],
+    #             "KR": ["ko"],
+    #             "HI": ["hi"],
+    #         }.items()
+        #     for la in langs
+        # },
+    # }
+    # font_name = LANG_NAME_MAP.get(lang,"NotoSansDevanagari-Regular.ttf")
 
     # docker
-    font_path = ConfigManager.get("NOTO_FONT_PATH", Path("/app", font_name).as_posix())
-    if not Path(font_path).exists():
-        font_path = Path(tempfile.gettempdir(), font_name).as_posix()
-    if not Path(font_path).exists():
-        print(f"Downloading {font_name}...")
-        urllib.request.urlretrieve(f"{URL_PREFIX}{font_name}", font_path)
+    # font_path = ConfigManager.get("NOTO_FONT_PATH", Path("/app", font_name).as_posix())
+    # if not Path(font_path).exists():
+    #     font_path = Path(tempfile.gettempdir(), font_name).as_posix()
+    # if not Path(font_path).exists():
+    #     print(f"Downloading {font_name}...")
+    #     urllib.request.urlretrieve(f"{URL_PREFIX}{font_name}", font_path)
+
+    # return font_path
+def download_remote_fonts(lang: str):
+    # URL_PREFIX = "https://github.com/daylightduck/hindifonts/blob/main/"
+    # LANG_NAME_MAP = {
+    #     **{la: "NotoSansDevanagari-Regular.ttf" for la in noto_list},
+    # }
+    # font_name = LANG_NAME_MAP.get(lang, "NotoSansDevanagari-Regular.ttf")
+
+    # Docker
+    font_path = Path(r"C:\Users\Srijan\Desktop\Mytest\pdf translate\PDFMathTranslate\pdf2zh\NotoSansDevanagari-Regular.ttf").as_posix()
+   
+
+    # Verify the font file
+    if not Path(font_path).exists() or not font_path.endswith('.ttf'):
+        raise RuntimeError(f"Invalid font file format: {font_path}")
 
     return font_path

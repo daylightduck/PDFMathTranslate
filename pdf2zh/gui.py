@@ -12,6 +12,7 @@ import tqdm
 from gradio_pdf import PDF
 from string import Template
 
+
 from pdf2zh import __version__
 from pdf2zh.high_level import translate
 from pdf2zh.doclayout import ModelInstance
@@ -78,6 +79,8 @@ lang_map = {
     "Russian": "ru",
     "Spanish": "es",
     "Italian": "it",
+    "Hindi":"hi",
+    "Arabic":"ar"
 }
 
 # The following variable associate strings with page ranges
@@ -291,6 +294,7 @@ def translate_file(
         raise gr.Error("No output")
 
     progress(1.0, desc="Translation complete!")
+    
 
     return (
         str(file_mono),
@@ -353,12 +357,12 @@ demo_recaptcha = """
     </script>
     """
 
-tech_details_string = f"""
-                    <summary>Technical details</summary>
-                    - GitHub: <a href="https://github.com/Byaidu/PDFMathTranslate">Byaidu/PDFMathTranslate</a><br>
-                    - GUI by: <a href="https://github.com/reycn">Rongxin</a><br>
-                    - Version: {__version__}
-                """
+# tech_details_string = f"""
+#                     <summary>Technical details</summary>
+#                     - GitHub: <a href="https://github.com/Byaidu/PDFMathTranslate">Byaidu/PDFMathTranslate</a><br>
+#                     - GUI by: <a href="https://github.com/reycn">Rongxin</a><br>
+#                     - Version: {__version__}
+#                 """
 cancellation_event_map = {}
 
 
@@ -372,7 +376,7 @@ with gr.Blocks(
     head=demo_recaptcha if flag_demo else "",
 ) as demo:
     gr.Markdown(
-        "# [PDFMathTranslate @ GitHub](https://github.com/Byaidu/PDFMathTranslate)"
+        "# PDF Translation Project Internship PwC"
     )
 
     with gr.Row():
@@ -483,10 +487,10 @@ with gr.Blocks(
             recaptcha_box = gr.HTML('<div id="recaptcha-box"></div>')
             translate_btn = gr.Button("Translate", variant="primary")
             cancellation_btn = gr.Button("Cancel", variant="secondary")
-            tech_details_tog = gr.Markdown(
-                tech_details_string,
-                elem_classes=["secondary-text"],
-            )
+            # tech_details_tog = gr.Markdown(
+            #     tech_details_string,
+            #     elem_classes=["secondary-text"],
+            # )
             page_range.select(on_select_page, page_range, page_input)
             service.select(
                 on_select_service,

@@ -34,6 +34,7 @@ dependencies = [
     "argostranslate",
     "fontTools",
     "yadt>=0.0.1a20, <0.2.0",
+    "modelscope",
 ]
 
 [project.optional-dependencies]

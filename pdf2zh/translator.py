@@ -112,11 +112,11 @@ class BaseTranslator:
             return [
                 {
                     "role": "system",
-                    "content": "You are a professional,authentic machine translation engine. Only Output the translated text, do not include any other text.",
+                    "content": "YOU ARE A PROFESSIONAL AND AN EXPERT WITH YEARS OF MORE THAN 20 YEARS OF EXPERIENCE AND YOU TRANSLATE THE TEXT CAREFULLY AND MEANINGFULLY WITHOUT LOSING THE CONTEXT. ONLY OUTPUT THE TRANSLATED TEXT, DO NOT INCLUDE ANY OTHER TEXT THE TRANSLATIONS SHOULD BE SIMPLE, DONT USE COMPLEX WORDS KEEP IT AS SIMPLE AS POSSIBLE.",
                 },
                 {
                     "role": "user",
-                    "content": f"Translate the following markdown source text to {self.lang_out}. Keep the formula notation {{v*}} unchanged. Output translation directly without any additional text.\nSource Text: {text}\nTranslated Text:",  # noqa: E501
+                    "content": f"TRANSLATE THE FOLLOWING MARKDOWN SOURCE TEXT TO {self.lang_out}. KEEP THE FORMULA NOTATION UNCHANGED. OUTPUT TRANSLATION DIRECTLY WITHOUT ANY ADDITIONAL TEXT.\nSOURCE TEXT: {text}\nTRANSLATED TEXT:  KEEP IN MIND THE CONTEXT SHOULD NOT BE LOST",  # noqa: E501
                 },
             ]
 
@@ -264,7 +264,7 @@ class OllamaTranslator(BaseTranslator):
     name = "ollama"
     envs = {
         "OLLAMA_HOST": "http://127.0.0.1:11434",
-        "OLLAMA_MODEL": "gemma2",
+        "MODEL": "gemma2-9b-it",
     }
     CustomPrompt = True
 
@@ -367,7 +367,7 @@ class OpenAITranslator(BaseTranslator):
     name = "openai"
     envs = {
         "OPENAI_BASE_URL": "https://api.openai.com/v1",
-        "OPENAI_API_KEY": None,
+        "OPENAI_API_KEY": "",
         "OPENAI_MODEL": "gpt-4o-mini",
     }
     CustomPrompt = True
@@ -748,12 +748,17 @@ class GorkTranslator(OpenAITranslator):
         super().__init__(lang_in, lang_out, model, base_url=base_url, api_key=api_key)
         self.prompttext = prompt
 
+os.environ["GROQ_API_KEY"] = "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"
+
+# Spare key
+# os.environ["GROQ_API_KEY"] = "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"
+
 
 class GroqTranslator(OpenAITranslator):
     name = "groq"
     envs = {
-        "GROQ_API_KEY": None,
-        "GROQ_MODEL": "llama-3-3-70b-versatile",
+        "GROQ_API_KEY": "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",
+        "GROQ_MODEL": "gemma2-9b-it",
     }
     CustomPrompt = True
 
